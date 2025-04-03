@@ -1,0 +1,75 @@
+class Persona {
+  String? nombre;
+  String? apellido;
+  int? edad;
+
+  Persona.soloNombres(this.nombre, this.apellido);
+  Persona.soloEdad(this.edad);
+
+  @override
+  String toString() {
+    return "Soy $nombre $apellido y tengo $edad años";
+  }
+}
+
+void main() {
+  final personaA = Persona.soloNombres("Carlos", "Chávez");
+  final personaB = Persona.soloEdad(20);
+
+  personaA.edad = 39;
+  personaB.nombre = "María";
+  personaB.apellido = "Flores";
+
+  print(personaA);
+  print(personaB);
+
+  int? obtenerMayorEdad(List<Persona> personas) {
+    int? mayorEdad;
+
+    for (Persona persona in personas) {
+      if (persona.edad == null) {
+        continue;
+      }
+
+      if (mayorEdad == null || persona.edad! > mayorEdad) {
+        mayorEdad = persona.edad;
+      }
+    }
+
+    return mayorEdad;
+  }
+
+  int? obtenerMenorEdad(List<Persona> personas) {
+    int? menorEdad;
+
+    for (Persona persona in personas) {
+      if (persona.edad == null) {
+        continue;
+      }
+
+      if (menorEdad == null || persona.edad! < menorEdad) {
+        menorEdad = persona.edad;
+      }
+    }
+
+    return menorEdad;
+  }
+
+  List<Persona> personas = [personaA, personaB];
+
+  int? mayorEdad = obtenerMayorEdad(personas);
+
+  if (mayorEdad != null) {
+    print("La mayor edad es $mayorEdad.");
+  } else {
+    print("No hay edades disponibles.");
+  }
+
+  int? menorEdad = obtenerMenorEdad(personas);
+
+  if (menorEdad != null) {
+    print("La menor edad es $menorEdad.");
+  } else {
+    print("No hay edades disponibles.");
+  }
+}
